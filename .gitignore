@@ -1,3 +1,4 @@
-./dynamodb
+./.dynamodb
+.dynamodb
 .serverless
 ./node_modules
