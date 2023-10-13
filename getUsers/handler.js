@@ -1,6 +1,6 @@
 const aws = require("aws-sdk");
 let dynamoDBClientParams = {}
-
+console.log(process.env.IS_OFFLINE)
 if (process.env.IS_OFFLINE) {
         dynamoDBClientParams = {    
         region: 'localhost',
@@ -12,9 +12,9 @@ if (process.env.IS_OFFLINE) {
 
 const dynamodb = new aws.DynamoDB.DocumentClient(dynamoDBClientParams);
 
-const getUsers = async (event, context) => {
+const getUsersById = async (event, context) => {
 
-    let userId = event.pathParameters.id;
+    let userId = event.pathParameters ? event.pathParameters.id : '1';
 
     var params = {
         ExpressionAttributeValues: { ':pk' : userId },
@@ -29,10 +29,38 @@ const getUsers = async (event, context) => {
             "statusCode": 200,
             "body": JSON.stringify(res.Items)
         }
+    }).catch((err)=>{
+        console.log(err);
+        return {
+            "statusCode": 500,
+            "body": JSON.stringify({mensaje:"Algo salió mal, intente nuevamente por favor."})
+        }
+    });
+
+}
+
+const getUsers = async (event, context) => {
+    var params = {
+        TableName: 'usuario'
+    }
+    return dynamodb.query(params).promise().then(res =>{
+        console.log("Esto es un test");
+        console.log(res);
+        return {
+            "statusCode": 200,
+            "body": JSON.stringify(res.Items)
+        }
+    }).catch((err)=>{
+        console.log(err);
+        return {
+            "statusCode": 500,
+            "body": JSON.stringify({mensaje:"Algo salió mal, intente nuevamente por favor."})
+        }
     });
 
 }
 
 module.exports = {
+    getUsersById,
     getUsers
 }

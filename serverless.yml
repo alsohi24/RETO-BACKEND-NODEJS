@@ -13,6 +13,8 @@ provider:
 plugins:
   - serverless-offline
   - serverless-dynamodb
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
 
 custom:
   dynamodb:
@@ -41,6 +43,12 @@ resources:
           WriteCapacityUnits: 1
 
 functions:
+  get-user-by-id:
+    handler: getUsers/handler.getUsersById
+    events:
+      - http:
+          path: users
+          method: GET
   get-users:
     handler: getUsers/handler.getUsers
     events:
@@ -54,14 +62,14 @@ functions:
           path: users
           method: POST
   get-translate-spanish:
-    handler: utils/handler.getTranslateSpanish
+    handler: utils/handler.getTranslateToSpanishAPI
     events:
       - http:
           path: translate/{word}
           method: GET
-
+  get-swapi:
+    handler: swapi/handler.getSwapiRecords
 package: 
   individually: true
   patterns:
     - "!.dynamodb"
-    - "!node_modules"`

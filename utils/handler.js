@@ -1,8 +1,9 @@
 const {Translate} = require('@google-cloud/translate').v2;
-const projectId = 'arqstyle';
+const PROJECT_ID = 'arqstyle';
+const GOOGLE_API_KEY = 'AIzaSyBp86nKTQAzv_9y0UgLyZzt_TPkZ3zqs9Q';
 const translate = new Translate({
-    projectId: projectId,
-    key: 'AIzaSyBp86nKTQAzv_9y0UgLyZzt_TPkZ3zqs9Q'
+    projectId: PROJECT_ID,
+    key: GOOGLE_API_KEY
   });
 
   function convertirAModeloEnEspanol(modeloIngles) {
@@ -14,10 +15,11 @@ const translate = new Translate({
         modeloEspanol[atributo] = modeloIngles[atributo];
       }
     }
+    console.log(modeloEspanol)
     return modeloEspanol;
   }
-  
-const getTranslateSpanish = async (event, context) => {
+
+const getTranslateToSpanishAPI = async (event, context) => {
     let textoAtraducir = event.pathParameters ? event.pathParameters.word : 'cheese';
     return translate.translate(textoAtraducir, 'es')
     .then(res =>{
@@ -38,6 +40,17 @@ const getTranslateSpanish = async (event, context) => {
 
 }
 
+const getTranslateToSpanish = async (text) => {
+    return translate.translate(text, 'es')
+    .then(res =>{
+        return res[0]
+    }).catch((err)=>{
+        console.log(err)
+        return '';
+    });
+}
+
 module.exports = {
-    getTranslateSpanish
+    getTranslateToSpanishAPI,
+    getTranslateToSpanish
 }

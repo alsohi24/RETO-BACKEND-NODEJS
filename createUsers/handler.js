@@ -30,10 +30,9 @@ const createUsers = async (event, context) => {
         console.log(res);
         return {
             "statusCode": 200,
-            "body": JSON.stringify({ user: res })
+            "body": JSON.stringify(userBody)
         }
     });
-
 }
 
 module.exports = {

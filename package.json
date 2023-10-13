@@ -10,10 +10,13 @@
   "license": "ISC",
   "devDependencies": {
     "serverless": "^3.21.0",
-    "serverless-offline": "^13.2.0"
+    "serverless-offline": "^13.2.0",
+    "serverless-plugin-common-excludes": "^4.0.0",
+    "serverless-plugin-include-dependencies": "^5.1.0"
   },
   "dependencies": {
     "@google-cloud/translate": "^8.0.2",
+    "axios": "^0.21.4",
     "serverless-dynamodb": "^0.2.43"
   }
 }
