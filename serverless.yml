@@ -68,7 +68,9 @@ functions:
           path: translate/{word}
           method: GET
   get-swapi:
-    handler: swapi/handler.getSwapiRecords
+    handler: swapi/handler.getSwapiRecordsToSpanish
+    layers:
+      - { Ref: BaseLambdaLayer }
     events:
       - http:
           path: swapi/{resource}
@@ -80,3 +82,16 @@ package:
   individually: true
   patterns:
     - "!.dynamodb"
+    - "!node_modules"
+    - "!layers"
+layers:
+  base:
+    name: prd-dependencies
+    description: layer for nodejs prd dependencies
+    licenseInfo: MIT
+    compatibleRuntimes:
+      - nodejs18.x
+    compatibleArchitectures:
+      - x86_64
+    package:
+      artifact: layers/nodejs-layer.zip    

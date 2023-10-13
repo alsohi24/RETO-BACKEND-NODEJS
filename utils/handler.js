@@ -6,19 +6,6 @@ const translate = new Translate({
     key: GOOGLE_API_KEY
   });
 
-  function convertirAModeloEnEspanol(modeloIngles) {
-    const modeloEspanol = {};
-    for (const atributo in modeloIngles) {
-      if (mapeo[atributo]) {
-        modeloEspanol[mapeo[atributo]] = modeloIngles[atributo];
-      } else {
-        modeloEspanol[atributo] = modeloIngles[atributo];
-      }
-    }
-    console.log(modeloEspanol)
-    return modeloEspanol;
-  }
-
 const getTranslateToSpanishAPI = async (event, context) => {
     let textoAtraducir = event.pathParameters ? event.pathParameters.word : 'cheese';
     return translate.translate(textoAtraducir, 'es')
