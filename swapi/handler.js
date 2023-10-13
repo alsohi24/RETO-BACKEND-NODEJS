@@ -1,12 +1,13 @@
 const {swapiEngine} = require('./swapi')
 
 const getSwapiRecords = async (event, context) => {
+    let resource = event.pathParameters ? event.pathParameters.resource : 'noDefined';
     let sw = new swapiEngine();
-    let starships = await sw.getRecords('starships',{});
-    console.log(starships)
+    let records = await sw.getRecords(resource,{});
+    console.log(records)
     return {
         "statusCode": 200,
-        "body": starships
+        "body": JSON.stringify(records)
     };
 }
 

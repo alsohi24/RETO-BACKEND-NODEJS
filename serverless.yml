@@ -69,6 +69,13 @@ functions:
           method: GET
   get-swapi:
     handler: swapi/handler.getSwapiRecords
+    events:
+      - http:
+          path: swapi/{resource}
+          method: GET
+      - http:
+          path: swapi/
+          method: GET    
 package: 
   individually: true
   patterns:

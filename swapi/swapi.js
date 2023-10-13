@@ -25,7 +25,7 @@ class swapiEngine {
         }
       } catch (error) {
         console.error('Error al obtener datos de SWAPI:', error);
-        return [1,2];
+        return [];
       }
     };
   
