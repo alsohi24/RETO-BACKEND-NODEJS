@@ -3,6 +3,7 @@ service: crud-users
 provider:
   name: aws
   runtime: nodejs14.x
+  timeout: 60
   iam:
     role:
       statements:
@@ -77,7 +78,19 @@ functions:
           method: GET
       - http:
           path: swapi/
-          method: GET    
+          method: GET
+  get-swapi-id:
+    handler: swapi/handler.getSwapiRecordsToSpanishById
+    layers:
+      - { Ref: BaseLambdaLayer }
+    events:
+      - http:
+          path: swapi/{resource}/{id}
+          method: GET
+          request:
+            parameters:
+              paths:
+                id: false
 package: 
   individually: true
   patterns:

@@ -30,21 +30,19 @@ class swapiEngine {
     };
   
     getOneRecord = async (model, id) => {
-      let res = await ax.get(`${model}/${id}/`);
-      return res;
+      try {
+        console.log(model,id)
+        const response = await ax.get(`${model}/${id}/`);
+        if (response.status === 200) {
+          return response.data;
+        } else {
+          throw new Error('La solicitud no tuvo éxito.');
+        }
+      } catch (error) {
+        console.error('Error al obtener datos de SWAPI:', error);
+        return [];
+      }
     }
-  
-    // updateRecord = (model, body) => {
-    //   return ax.patch(`${model}/`, {
-    //     "resource": body
-    //   });
-    // }
-  
-    // addRecord = (model, body) => {
-    //   return ax.post(`${model}/`, {
-    //     "resource": body
-    //   });
-    // } 
 }
 
 module.exports = {

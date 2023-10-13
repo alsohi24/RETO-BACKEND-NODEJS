@@ -24,10 +24,7 @@ const createUsers = async (event, context) => {
         TableName: 'usuario',
         Item: userBody
     }
-    console.log(userBody)
     return dynamodb.put(params).promise().then(res =>{
-        console.log("Esto es un test");
-        console.log(res);
         return {
             "statusCode": 200,
             "body": JSON.stringify(userBody)
