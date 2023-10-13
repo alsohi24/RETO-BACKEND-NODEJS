@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: Documentación de API
+  version: 1.0.0
+paths:
+  /dev/users:
+    get:
+      summary: Recupera una lista de usuarios
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              example:
+                - name: Alvaro
+                - last_name: Soto
+                - pk : 1
+    post:
+        summary: Crea un nuevo usuario
+        requestBody:
+          description: Datos del nuevo usuario
+          content:
+            application/json:
+              example:
+                name: NuevoUsuario
+        responses:
+          '201':
+            description: Usuario creado exitosamente
+            content:
+              application/json:
+                example:
+                  name: NuevoUsuario
+  /dev/users/{id}:
+    get:
+      summary: Recupera un usuario por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              example:
+                name: Usuario1
+  /dev/translate/{word}:
+    get:
+      summary: Traduce una palabra al español
+      parameters:
+        - name: word
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            text/plain:
+              example: palabra
+  /dev/swapi/{resource}:
+    get:
+      summary: Recupera datos de SWAPI
+      parameters:
+        - name: resource
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              example:
+                - Datos de SWAPI
+  /dev/swapi/{resource}/{id}:
+    get:
+      summary: Recupera datos de SWAPI por ID
+      parameters:
+        - name: resource
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              example:
+                - Datos de SWAPI

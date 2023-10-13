@@ -2,8 +2,6 @@ const {swapiEngine} = require('./swapi')
 const {getTranslateToSpanish} = require('../utils/handler');
 
 const convertModelToSpanish = async (objEnglish)  => {
-    console.log('on convertModelToSpanish')
-    console.log(objEnglish)
     const objSpanish = {};
     for (const attribute in objEnglish) {
         objSpanish[await getTranslateToSpanish(attribute)] = objEnglish[attribute];
@@ -39,7 +37,7 @@ const getSwapiRecordsToSpanish = async (event, context) => {
 
 const getSwapiRecordsToSpanishById = async (event, context) => {
     let resource = event.pathParameters ? event.pathParameters.resource : 'test';
-    let rId = event.pathParameters ? event.pathParameters.id : '';
+    let rId = event.pathParameters ? event.pathParameters.id : '1';
     let sw = new swapiEngine();
     let record = await sw.getOneRecord(resource,rId);
     console.log('on getSwapiRecordsToSpanishById')
@@ -56,5 +54,6 @@ const getSwapiRecordsToSpanishById = async (event, context) => {
 module.exports = {
     getSwapiRecords,
     getSwapiRecordsToSpanish,
-    getSwapiRecordsToSpanishById
+    getSwapiRecordsToSpanishById,
+    convertModelToSpanish
 }
